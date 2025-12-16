@@ -1,0 +1,125 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+enum DRIVERSTATE {
+  DRIVING
+  PARKED
+  RACING
+  NOT_RACING
+}
+
+enum SpeedBucket {
+  SLOW
+  MEDIUM
+  FAST
+}
+
+enum RaceState {
+  REQUESTED
+  LOCKED
+  RACING
+  FINISHED
+  ABORTED
+}
+
+enum ReadyToRace {
+  READY
+  RACING
+  DROPPED
+}
+
+model Driver {
+  id            String    @id @default(cuid())
+  firstname     String
+  lastname      String
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  username      String    @unique
+  password      String
+
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now())
+  driverSessions   DriverSession[]
+  presences        Presence[]
+  raceParticipants RaceParticipant[]
+
+  @@index([id, username])
+}
+
+model DriverSession {
+  id       String   @id @default(cuid())
+  driver   Driver   @relation(fields: [driverId], references: [id])
+  lastSeen DateTime
+  isActive Boolean
+
+  driverId String
+}
+
+model Presence {
+  id       String @id @default(cuid())
+  driver   Driver @relation(fields: [driverId], references: [id])
+  driverId String
+  lat      BigInt
+  lon      BigInt
+  heading  BigInt
+
+  speedBucket SpeedBucket
+  updatedAt   DateTime    @default(now())
+}
+
+model Route {
+  id String @id @default(cuid())
+
+  // polyline { lat: number; lon: number }[]
+  routeSegments RouteSegment[]
+  races         Race[]
+}
+
+model RouteSegment {
+  id    String @id @default(cuid())
+  route Route  @relation(fields: [routeId], references: [id])
+
+  routeId String
+  index   Int
+  start   Json
+  end     Json
+  // start: { lat: number; lon: number }
+  // end: { lat: number; lon: number }
+  races   Race[]
+}
+
+model Race {
+  id String @id @default(cuid())
+
+  route            Route             @relation(fields: [routeId], references: [id])
+  routeId          String
+  segment          RouteSegment      @relation(fields: [routeSegmentId], references: [id])
+  state            RaceState
+  startAt          DateTime
+  durationSec      Int
+  createdAt        DateTime
+  routeSegmentId   String
+  raceParticipants RaceParticipant[]
+}
+
+model RaceParticipant {
+  race   Race   @relation(fields: [raceId], references: [id])
+  driver Driver @relation(fields: [driverId], references: [id])
+
+  // driverId UUID
+  // joinedAt timestamp
+  // status: 
+  raceId   String
+  driverId String
+
+  joinedAt DateTime
+  status   ReadyToRace
+}
