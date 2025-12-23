@@ -1,28 +1,15 @@
 "use client";
 
 import { Table } from "@chakra-ui/react"
-import { Cross1Icon } from "@radix-ui/react-icons"
-import { motion } from "framer-motion"
 import Image from "next/image"
-import { Dispatch, SetStateAction } from "react"
 
-type PositionTableProps = {
-    setIsMenuOpen: Dispatch<SetStateAction<boolean>>
-}
 
-export const PositionTableSideMenu = ({ setIsMenuOpen }: PositionTableProps) => {
+
+export const SecondDriverPage = () => {
     return (
-        <motion.aside
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'tween', duration: 0.25 }}
-            className="fixed left-0 top-0 h-full w-4/5 max-w-sm bg-gray-950 p-2 z-50 shadow-lg"
-        >
+        <div className="bg-black/60 ">
 
-
-
-            <Table.Root size="sm" stickyHeader className="p-2  w-4/5 h-screen">
+            <Table.Root size="sm" stickyHeader className="p-2 w-full h-full">
                 <Table.Header>
                     <Table.Row bg="bg.subtle">
                         <Table.ColumnHeader className="w-[10%] ">Image</Table.ColumnHeader>
@@ -51,7 +38,7 @@ export const PositionTableSideMenu = ({ setIsMenuOpen }: PositionTableProps) => 
                     ))}
                 </Table.Body>
             </Table.Root>
-        </motion.aside >
+        </div>
 
     )
 }
@@ -64,5 +51,8 @@ const items = [
     { id: 5, image: "https://i.pravatar.cc/300?img=11", driverName: "Zainab", position: 1, price: 199.99 },
     { id: 6, image: "https://i.pravatar.cc/300?img=16", driverName: "Calid", position: 1, price: 199.99 },
     { id: 7, image: "https://i.pravatar.cc/300?img=17", driverName: "Niphkeys", position: 1, price: 199.99 },
+    { id: 8, image: "https://i.pravatar.cc/300?img=18", driverName: "Bnxn", position: 1, price: 199.99 },
+    { id: 8, image: "https://i.pravatar.cc/300?img=18", driverName: "Bnxn", position: 1, price: 199.99 },
+    { id: 8, image: "https://i.pravatar.cc/300?img=18", driverName: "Bnxn", position: 1, price: 199.99 },
     { id: 8, image: "https://i.pravatar.cc/300?img=18", driverName: "Bnxn", position: 1, price: 199.99 },
 ]
