@@ -1,8 +1,10 @@
-import React from 'react'
+import { RaceMap } from '@/components/maps/map-box'
 
 function Home() {
     return (
-        <div>This is the homepage</div>
+        <div>
+            <RaceMap />
+        </div>
     )
 }
 

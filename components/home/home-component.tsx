@@ -9,12 +9,15 @@ import { SecondDriverPage } from "../drivercomponents/second-driver";
 import Image from "next/image";
 import { SheetHeader } from "./sheetheader";
 import { DriverList } from "../drivercomponents/driver-list";
+import { RaceMap } from "../maps/map-box";
+// import RaceMap from "../maps/map-box";
 
 
 const HomeComponent = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const y = useMotionValue(0);
-    const [expanded, setExpanded] = useState(true);
+    // start collapsed so the full-screen dark overlay isn't visible immediately
+    const [expanded, setExpanded] = useState(false);
 
     const expandedHeight = "60vh";
     const collapsedHeight = "20vh";
@@ -58,8 +61,9 @@ const HomeComponent = () => {
 
 
 
-            <div className="absolute h-screen">
-                <Map />
+            <div className="h-screen ">
+                {/* <Map /> */}
+                <RaceMap />
             </div>
             {expanded && (
                 <motion.div

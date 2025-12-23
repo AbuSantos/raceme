@@ -17,8 +17,8 @@ export const DriverCard = ({
         <div
             className="
         flex items-center justify-between
-        py-4! px-4!
-        border-t border-white/10 
+        py-2! px-4!
+        border-t! border-white/10! 
       "
         >
             <div className="flex items-center gap-4 ">
@@ -54,9 +54,7 @@ export const DriverCard = ({
 
             <button
                 className="rounded-full p-2! bg-linear-to-r! from-emerald-400! to-emerald-600! 
-          font-semibold! shadow-lg hover:brightness-110 active:scale-95 transition text-[12px]!
-        "
-            >
+          font-medium! shadow-lg! hover:brightness-110! active:scale-95 transition! text-[12px]!" >
                 REQUEST RACE
             </button>
         </div>

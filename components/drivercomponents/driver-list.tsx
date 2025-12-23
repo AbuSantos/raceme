@@ -2,7 +2,7 @@ import { DriverCard } from "./driver-card";
 
 export const DriverList = () => {
     return (
-        <div className="space-y-6 bg-black/40 rounded border! border-gray-700! " >
+        <div className="space-y-6 bg-black/40 rounded-lg border! border-gray-700! " >
             <DriverCard
                 name="Femi"
                 avatar="https://i.pravatar.cc/300?img=10"
