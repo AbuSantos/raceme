@@ -1,22 +1,11 @@
 import NextAuth from "next-auth";
 import "next-auth/jwt";
 import Google from "next-auth/providers/google";
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+import { PrismaClient } from "./app/generated/prisma";
+import authConfig from "./auth.config";
 
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-        };
-      },
-    }),
-  ],
+export const { handlers, signIn, signOut, auth } = NextAuth({
+ 
   pages: {
     signIn: "/signin",
   },
@@ -28,13 +17,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id;
       }
+
       return token;
     },
     session({ session, token, user }) {
-      if (user) {
-        session.user.id = token.id as string;
-      }
-      console.log("Session callback:", { session, token, user });
+      session.user.id = token.id as string;
+
+      // console.log("Session callback:", { session, token, user });
 
       return session;
     },
@@ -42,4 +31,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return baseUrl;
     },
   },
-}) 
+  session: {
+    strategy: "jwt",
+    maxAge: 5 * 24 * 60 * 60,
+  },
+  jwt: {
+    maxAge: 5 * 24 * 60 * 60,
+  },
+  ...authConfig,
+});

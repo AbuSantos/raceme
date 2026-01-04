@@ -5,6 +5,7 @@ import { Cross1Icon } from "@radix-ui/react-icons"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Dispatch, SetStateAction } from "react"
+import SideNavigation from "./side-nav";
 
 type PositionTableProps = {
     setIsMenuOpen: Dispatch<SetStateAction<boolean>>
@@ -19,9 +20,7 @@ export const PositionTableSideMenu = ({ setIsMenuOpen }: PositionTableProps) => 
             transition={{ type: 'tween', duration: 0.25 }}
             className="fixed left-0 top-0 h-full w-4/5 max-w-sm bg-gray-950 p-2 z-50 shadow-lg"
         >
-
-
-
+            <SideNavigation />
             <Table.Root size="sm" stickyHeader className="p-2  w-4/5 h-screen">
                 <Table.Header>
                     <Table.Row bg="bg.subtle">

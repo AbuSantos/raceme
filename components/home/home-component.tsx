@@ -63,7 +63,7 @@ const HomeComponent = () => {
 
             <div className="h-screen ">
                 {/* <Map /> */}
-                <RaceMap />
+                {/* <RaceMap /> */}
             </div>
             {expanded && (
                 <motion.div
